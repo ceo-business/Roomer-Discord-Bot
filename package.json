@@ -1,0 +1,15 @@
+{
+  "name": "Roomer",
+  "version": "1.0.1",
+  "description": "DiscordBot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "uglycorsa",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  }
+}
