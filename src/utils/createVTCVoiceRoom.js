@@ -1,4 +1,4 @@
-const { ChannelType, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, PermissionFlagsBits } = require('discord.js');
+const { ChannelType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, PermissionFlagsBits } = require('discord.js');
 
 async function createVTCVoiceRoom(client, newState) {
     const guild = newState.guild;
@@ -7,8 +7,7 @@ async function createVTCVoiceRoom(client, newState) {
     const categoryName = `Категория ${userName}`;
     const voiceChannelName = `Комната ${userName}`;
     const textChannelName = `Настройки-комнаты`;
-    
-    // Создание категории, если она не существует
+
     const category = await guild.channels.create({
         name: categoryName,
         type: ChannelType.GuildCategory,
@@ -18,7 +17,7 @@ async function createVTCVoiceRoom(client, newState) {
     const voiceChannel = await guild.channels.create({
         name: voiceChannelName,
         type: ChannelType.GuildVoice,
-        userLimit: 2,
+        userLimit: 0,
         parent: category.id
     });
 
@@ -44,25 +43,20 @@ async function createVTCVoiceRoom(client, newState) {
 
     const embed = new EmbedBuilder()
         .setTitle("Меню комнаты")
-        .setDescription("Используйте меню ниже, чтобы изменить лимит пользователей в комнате.")
-        .addFields({ name: 'Лимит пользователей', value: '2', inline: false })
+        .setDescription("Нажмите кнопку ниже, чтобы изменить лимит пользователей в вашей комнате.")
+        .addFields({ name: 'Текущий лимит пользователей', value: 'без ограничений', inline: false })
         .setColor('#A0C3ED');
 
     const row = new ActionRowBuilder()
-        .addComponents(
-            new SelectMenuBuilder()
-                .setCustomId('select')
-                .setPlaceholder('Выберите количество пользователей')
-                .addOptions([
-                    { label: '2 пользователей', value: '2' },
-                    { label: '3 пользователей', value: '3' },
-                    { label: '4 пользователей', value: '4' },
-                    { label: '5 пользователей', value: '5' },
-                    { label: '6 пользователей', value: '6' },
-                ]),
+      .addComponents(
+            new ButtonBuilder()
+          .setCustomId('setUserLimit')  // Убедитесь, что это ID совпадает в обработчике
+          .setLabel('Лимит пользователей')
+          .setStyle(1),
         );
 
-    await textChannel.send({ embeds: [embed], components: [row] });
+        const message = await textChannel.send({ embeds: [embed], components: [row] });
+        const messageId = message.id;
 }
 
 module.exports = { createVTCVoiceRoom };
