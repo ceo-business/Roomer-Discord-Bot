@@ -1,16 +1,16 @@
-const { handleChannelLimitSelection } = require('../utils/handleChannelLimitSelection');
-const { createVTCButton } = require('../utils/createVTCButton');
+const { handleChannelLimitSelection, handleModalSubmit } = require('../utils/handleChannelLimitSelection');
 
 module.exports = {
     name: 'interactionCreate',
-    execute(client, interaction, newState) {
-        if (interaction.isSelectMenu()) {
-            handleChannelLimitSelection(interaction);
-        }
+    execute(client, interaction) {
         if (interaction.isButton()) {
-          if (interaction.customId === 'createRoom') {
-            createVTCButton(interaction);
-          }
+            if (interaction.customId === 'setUserLimit') {
+                handleChannelLimitSelection(interaction);
+            }
+        } else if (interaction.isModalSubmit()) {
+            if (interaction.customId === 'setUserLimitModal') {
+                handleModalSubmit(interaction);
+            }
         }
     }
 };
