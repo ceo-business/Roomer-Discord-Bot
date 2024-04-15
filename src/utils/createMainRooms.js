@@ -1,7 +1,7 @@
 const { ChannelType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js');
 
 async function createMainRooms(guild) {
-    const categoryName = 'Пользовательские комнаты';
+    const categoryName = 'Приватные комнаты';
     const voiceChannelName = 'Создать комнату';
     const textChannelName = 'Информация';
 
@@ -43,23 +43,17 @@ async function createMainRooms(guild) {
 
     const embed = new EmbedBuilder()
         .setTitle("Информация")
-        .setDescription("Привет, я Roomer. Я умею создаю комнаты, для совместных посиделок, важных встреч и не только. Функционал у меня пока что не большой. Но я буду развиваться и помогать Вам.")
+        .setDescription("Привет, я Roomer. Я умею создаю комнаты, для совместных посиделок, важных встреч и не только.")
         .setColor('#A0C3ED')
         .setAuthor({ name: 'Roomer', iconURL: 'https://cdn.discordapp.com/avatars/444176688960765973/b4ec7f9c5ec73fd08ebb250d69d31e32.webp', url: 'https://roomer.uglycorsa.com/' })
         .addFields(
-          { name: '\u200B', value: '\u200B' },
-          { name: 'Предложения:', value: 'Если у Вас есть идеи, не стесняйтесь писать и задавать вопросы. На сайте Вы сможете найдете все что Вам нужно.' },
-          { name: 'Поддержать проект:', value: 'Вы можете поддержать проект, нажав на соответствующую кнопку внизу. Это мне поможет работать лучше, а так же маштабироваться и придумывать новые функции :)', inline: false },
-          { name: 'Добавить на сервер:', value: 'Если хотите добавить меня на свой discord сервер, Вы это можете сделать, нажав на соответствующую кнопку внизу.', inline: false },
+          // { name: '\u200B', value: '\u200B' },
+          { name: 'Инструкция:', value: 'Чтобы создать **Приватную комнату**, нажмите на голосовой канал **Создать комнату**' },
         )
-        .setTimestamp()
+        // .setTimestamp()
         .setFooter({ text: 'powered by uglycorsa.'});
     const row = new ActionRowBuilder()
         .addComponents(
-            new ButtonBuilder()
-                .setCustomId('createRoom')
-                .setLabel('Создать комнату')
-                .setStyle(ButtonStyle.Success),
                 new ButtonBuilder()
                 .setLabel('Добавить бота на свой сервер')
                 .setStyle(ButtonStyle.Link)
