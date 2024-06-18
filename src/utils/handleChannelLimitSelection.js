@@ -55,11 +55,4 @@ async function handleModalSubmit(interaction) {
   }
 }
 
-
-
-
-
-
-
-
 module.exports = { handleChannelLimitSelection, handleModalSubmit };
